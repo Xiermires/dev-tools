@@ -24,16 +24,19 @@ public class ShutdownManager {
 	}));
     }
 
-    public static void closeOnShutdown(java.io.Closeable closeable) {
+    public static <T extends java.io.Closeable> T closeOnShutdown(T closeable) {
 	closeOnShutdown(new CloseableIOWrapper(closeable));
+	return closeable;
     }
 
-    public static void closeOnShutdown(Closeable closeable) {
+    public static <T extends Closeable> T closeOnShutdown(T closeable) {
 	closeables.add(closeable);
+	return closeable;
     }
 
-    public static void closeAfter(Closeable closeable, long delay, TimeUnit unit) {
+    public static  <T extends Closeable> T  closeAfter(T closeable, long delay, TimeUnit unit) {
 	scheduler.schedule(() -> close(closeable), delay, unit);
+	return closeable;
     }
 
     private static void close(Closeable closeable) {
