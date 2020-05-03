@@ -22,7 +22,8 @@ public class Proxies {
                 .subclass(ih.delegate.getClass()) //
                 .implement(Proxied.class).defineMethod("writeReplace", Object.class, Visibility.PUBLIC) //
                 .intercept(adapter) //
-                .defineMethod("getInvocationHandler", SerializableProxy.class, Visibility.PUBLIC).intercept(adapter)
+                .defineMethod("getInvocationHandler", SerializableProxy.class, Visibility.PUBLIC) //
+                .intercept(adapter)
                 .method(ElementMatchers.any()) //
                 .intercept(adapter) //
                 .make() //
